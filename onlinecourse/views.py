@@ -69,7 +69,6 @@ def check_if_enrolled(user, course):
             is_enrolled = True
     return is_enrolled
 
-
 # CourseListView
 class CourseListView(generic.ListView):
     template_name = 'onlinecourse/course_list_bootstrap.html'
@@ -83,11 +82,9 @@ class CourseListView(generic.ListView):
                 course.is_enrolled = check_if_enrolled(user, course)
         return courses
 
-
 class CourseDetailView(generic.DetailView):
     model = Course
     template_name = 'onlinecourse/course_detail_bootstrap.html'
-
 
 def enroll(request, course_id):
     course = get_object_or_404(Course, pk=course_id)
@@ -101,7 +98,6 @@ def enroll(request, course_id):
         course.save()
 
     return HttpResponseRedirect(reverse(viewname='onlinecourse:course_details', args=(course.id,)))
-
 
 # <HINT> Create a submit view to create an exam submission record for a course enrollment,
 # you may implement it based on following logic:
@@ -168,5 +164,3 @@ def show_exam_result(request, course_id, lesson_id ,submission_id):
         'grade' : final_score,
     }
     return render(request, 'onlinecourse/exam_result_bootstrap.html', context)
-
-
